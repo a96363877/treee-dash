@@ -83,6 +83,7 @@ interface CardData {
 }
 
 interface Notification {
+  isHidden?: any
   id: string
   createdDate: string
   status: "pending" | "approved" | "rejected" | string

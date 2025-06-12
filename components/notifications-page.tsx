@@ -1086,7 +1086,7 @@ export default function NotificationsPage() {
                     className="space-y-3 p-4 bg-muted/50 rounded-lg text-sm"
                   >
                     {tab.items.map(
-                      (item) =>
+                      (item:any) =>
                         item.data && (
                           <p key={item.label} className="flex justify-between">
                             <span className="font-medium text-muted-foreground">{item.label}:</span>

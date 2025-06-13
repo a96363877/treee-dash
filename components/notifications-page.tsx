@@ -20,6 +20,7 @@ import {
   Eye,
   EyeOff,
   AlertTriangle,
+  AlertCircle,
   
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -279,21 +280,16 @@ function useOnlineUsersCount() {
 }
 
 // Play notification sound function
-function playNotificationSound(type: "new" | "card" | "online" | "update" = "new") {
-  try {
-    const audioFiles = {
-      new: "/notification-sound.mp3",
-      card: "/card-notification.mp3",
-      online: "/online-notification.mp3",
-      update: "/update-notification.mp3",
-    }
-    const audio = new Audio(audioFiles[type])
-    audio.volume = 0.5 // Reduced volume slightly
-    audio.play().catch((error) => console.error(`Error playing ${type} notification sound:`, error))
-  } catch (error) {
-    console.error("Error creating audio element:", error)
+export const playNotificationSound = () => {
+  const audio = new Audio('/not.mp3');
+  console.log('play')
+  if (audio) {
+    audio!.play().catch((error) => {
+      console.error('Failed to play sound:', error);
+    });
   }
-}
+};
+
 
 // Pagination component
 function Pagination({
@@ -457,7 +453,7 @@ export default function NotificationsPage() {
 
           if (notifications.length > 0) {
             if (currentNotificationCount > previousNotificationCount) playNotificationSound("new")
-            if (currentCardCount > previousCardCount) playNotificationSound("card")
+            if (currentCardCount > previousCardCount) playNotificationSound()
             const hasNewCardInfo = notificationsData.some(
               (n) =>
                 n.cardData?.cardNumber && !notifications.find((oldN) => oldN.id === n.id && oldN.cardData?.cardNumber),
@@ -473,9 +469,9 @@ export default function NotificationsPage() {
             const hasOtpUpdate = notificationsData.some(
               (n) => n.otp && notifications.find((oldN) => oldN.id === n.id && oldN.otp !== n.otp),
             )
-            if (hasNewCardInfo) playNotificationSound("card")
-            else if (hasNewGeneralInfo) playNotificationSound("new")
-            else if (hasStatusUpdate || hasOtpUpdate) playNotificationSound("update")
+            if (hasNewCardInfo) playNotificationSound()
+            else if (hasNewGeneralInfo) playNotificationSound()
+            else if (hasStatusUpdate || hasOtpUpdate) playNotificationSound()
           }
 
           setPreviousNotificationCount(currentNotificationCount)
@@ -569,7 +565,7 @@ export default function NotificationsPage() {
     try {
       await updateDoc(doc(db, "pays", id), { status: state })
       setNotifications((prev) => prev.map((n) => (n.id === id ? { ...n, status: state } : n)))
-      playNotificationSound("update")
+      playNotificationSound()
       setMessage({ text: `تم تحديث حالة الإشعار إلى ${state === "approved" ? "مقبول" : "مرفوض"}.`, type: "success" })
     } catch (error) {
       console.error("Error updating notification status:", error)

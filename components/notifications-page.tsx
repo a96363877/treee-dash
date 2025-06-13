@@ -43,8 +43,6 @@ import { collection, onSnapshot, orderBy, query, doc, updateDoc } from "firebase
 import { ref, onValue } from "firebase/database"
 import { database, db } from "@/lib/firebase"
 import { motion, AnimatePresence } from "framer-motion"
-
-// Flag colors for row highlighting
 type FlagColor = "red" | "yellow" | "green" | null
 
 // Insurance form data interface
